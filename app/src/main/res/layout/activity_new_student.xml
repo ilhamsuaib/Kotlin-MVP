@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edtStudentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/student_name"
+        android:inputType="textPersonName"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/edtStudentEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/student_email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnSaveStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/save"
+        android:textColor="@android:color/white" />
+</LinearLayout>

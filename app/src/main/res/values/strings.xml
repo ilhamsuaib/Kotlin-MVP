@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BinarMVP</string>
+    <string name="new_student">New Student</string>
+    <string name="student_name">Student name</string>
+    <string name="student_email">Student email</string>
+    <string name="save">Save</string>
 </resources>

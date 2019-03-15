@@ -18,7 +18,7 @@ object NetworkConfig {
 
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://kotlinspringcrud.herokuapp.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(getOkHttpClient())
             .build()

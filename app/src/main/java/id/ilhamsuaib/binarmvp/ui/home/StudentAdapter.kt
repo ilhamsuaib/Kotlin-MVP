@@ -1,4 +1,4 @@
-package id.ilhamsuaib.binarmvp.home
+package id.ilhamsuaib.binarmvp.ui.home
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

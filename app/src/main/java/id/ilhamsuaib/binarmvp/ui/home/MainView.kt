@@ -1,4 +1,4 @@
-package id.ilhamsuaib.binarmvp.home
+package id.ilhamsuaib.binarmvp.ui.home
 
 import id.ilhamsuaib.binarmvp.model.Student
 
@@ -9,6 +9,6 @@ import id.ilhamsuaib.binarmvp.model.Student
 
 interface MainView {
 
-    fun sayHello(hello: String)
     fun showStudents(results: List<Student>)
+    fun onError(message: String)
 }
