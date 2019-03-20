@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import id.ilhamsuaib.binarmvp.R
 import id.ilhamsuaib.binarmvp.common.toast
@@ -50,35 +51,40 @@ class MainActivity : AppCompatActivity(), MainView {
             layoutManager = LinearLayoutManager(context)
             adapter = studentAdapter
         }
+
+        swipeRefresh.setOnRefreshListener {
+            presenter.getStudents()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun onLongClick(student: Student) {
         //ketika item recycler view di klik tahan/lama
         val options = arrayOf("Edit", "Hapus")
         AlertDialog.Builder(this)
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> {
-                        //edit
+                .setItems(options) { dialog, which ->
+                    when (which) {
+                        0 -> {
+                            //edit
+                        }
+                        1 -> askForDelete(student)
                     }
-                    1 -> askForDelete(student)
+                    dialog.dismiss()
                 }
-                dialog.dismiss()
-            }
-            .show()
+                .show()
     }
 
     private fun askForDelete(student: Student) {
         AlertDialog.Builder(this)
-            .setTitle("Hapus Siswa?")
-            .setMessage("Anda yakin akan menghapus siswa bernama ${student.name}?")
-            .setPositiveButton("Tidak") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setNegativeButton("Ya") { dialog, which ->
-                presenter.deleteStudent(student)
-            }
-            .show()
+                .setTitle("Hapus Siswa?")
+                .setMessage("Anda yakin akan menghapus siswa bernama ${student.name}?")
+                .setPositiveButton("Tidak") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Ya") { dialog, which ->
+                    presenter.deleteStudent(student)
+                }
+                .show()
     }
 
     private fun onClick(student: Student) {
@@ -101,6 +107,14 @@ class MainActivity : AppCompatActivity(), MainView {
             studentAdapter.notifyDataSetChanged()
         }
         toast(message)
+    }
+
+    override fun showProgress(show: Boolean) {
+        if (show) {
+            progress.visibility = View.VISIBLE
+        } else {
+            progress.visibility = View.GONE
+        }
     }
 }
 

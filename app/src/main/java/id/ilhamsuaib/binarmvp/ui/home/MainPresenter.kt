@@ -21,13 +21,16 @@ class MainPresenter(private val view: MainView) {
     }
 
     fun getStudents() {
+        view.showProgress(true)
         apiServices.getAllStudents()
             .enqueue(object : Callback<StudentResponse> {
                 override fun onFailure(call: Call<StudentResponse>, t: Throwable) {
                     view.onError(t.localizedMessage)
+                    view.showProgress(false)
                 }
 
                 override fun onResponse(call: Call<StudentResponse>, response: Response<StudentResponse>) {
+                    view.showProgress(false)
                     val body: StudentResponse? = response.body()
                     if (body != null) {
                         body.data?.let { studentList ->
@@ -41,13 +44,16 @@ class MainPresenter(private val view: MainView) {
     }
 
     fun deleteStudent(student: Student) {
+        view.showProgress(true)
         apiServices.deleteStudent(student.id)
             .enqueue(object : Callback<NewStudentResponse> {
                 override fun onFailure(call: Call<NewStudentResponse>, t: Throwable) {
                     view.onError(t.localizedMessage)
+                    view.showProgress(false)
                 }
 
                 override fun onResponse(call: Call<NewStudentResponse>, response: Response<NewStudentResponse>) {
+                    view.showProgress(false)
                     if (response.body()?.status == "OK") {
                         view.onDeleteStudent(student, true, "Berhasil menghapus siswa ${student.name}")
                     } else {
