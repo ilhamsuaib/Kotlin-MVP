@@ -1,6 +1,8 @@
 package id.ilhamsuaib.binarmvp.ui.home
 
 import id.ilhamsuaib.binarmvp.BinarMvpApp
+import id.ilhamsuaib.binarmvp.model.NewStudentResponse
+import id.ilhamsuaib.binarmvp.model.Student
 import id.ilhamsuaib.binarmvp.model.StudentResponse
 import id.ilhamsuaib.binarmvp.network.ApiServices
 import retrofit2.Call
@@ -37,4 +39,47 @@ class MainPresenter(private val view: MainView) {
                 }
             })
     }
+
+    fun deleteStudent(student: Student) {
+        apiServices.deleteStudent(student.id)
+            .enqueue(object : Callback<NewStudentResponse> {
+                override fun onFailure(call: Call<NewStudentResponse>, t: Throwable) {
+                    view.onError(t.localizedMessage)
+                }
+
+                override fun onResponse(call: Call<NewStudentResponse>, response: Response<NewStudentResponse>) {
+                    if (response.body()?.status == "OK") {
+                        view.onDeleteStudent(student, true, "Berhasil menghapus siswa ${student.name}")
+                    } else {
+                        view.onDeleteStudent(student, false, "Error : gagal menghapus siswa ${student.name}")
+                    }
+                }
+            })
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

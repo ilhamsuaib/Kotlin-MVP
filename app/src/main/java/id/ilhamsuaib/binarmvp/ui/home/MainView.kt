@@ -11,4 +11,5 @@ interface MainView {
 
     fun showStudents(results: List<Student>)
     fun onError(message: String)
+    fun onDeleteStudent(student: Student, isSuccess: Boolean, message: String)
 }

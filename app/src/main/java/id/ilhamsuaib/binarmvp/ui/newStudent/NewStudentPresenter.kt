@@ -15,18 +15,18 @@ class NewStudentPresenter(private val view: NewStudentView) {
 
     fun newStudent(studentMap: Map<String, String>) {
         BinarMvpApp.api.newStudent(studentMap)
-                .enqueue(object : Callback<NewStudentResponse> {
-                    override fun onFailure(call: Call<NewStudentResponse>, t: Throwable) {
-                        view.onStudentSave(false, t.localizedMessage)
-                    }
+            .enqueue(object : Callback<NewStudentResponse> {
+                override fun onFailure(call: Call<NewStudentResponse>, t: Throwable) {
+                    view.onStudentSave(false, t.localizedMessage)
+                }
 
-                    override fun onResponse(call: Call<NewStudentResponse>, response: Response<NewStudentResponse>) {
-                        val isSuccess = response.body()?.status == "OK"
-                        if (isSuccess)
-                            view.onStudentSave(isSuccess, "Sukses menyimpan siswa")
-                        else
-                            view.onStudentSave(isSuccess, "Gagal menyimpan siswa, coba lagi")
-                    }
-                })
+                override fun onResponse(call: Call<NewStudentResponse>, response: Response<NewStudentResponse>) {
+                    val isSuccess = response.body()?.status == "OK"
+                    if (isSuccess)
+                        view.onStudentSave(isSuccess, "Sukses menyimpan siswa")
+                    else
+                        view.onStudentSave(isSuccess, "Gagal menyimpan siswa, coba lagi")
+                }
+            })
     }
 }

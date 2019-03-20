@@ -13,7 +13,11 @@ import kotlinx.android.synthetic.main.item_student.view.*
  * github.com/ilhamsuaib
  */
 
-class StudentAdapter(private val studentList: List<Student>) : RecyclerView.Adapter<StudentAdapter.StudentHolder>() {
+class StudentAdapter(
+    private val studentList: List<Student>,
+    private val onClick: (Student) -> Unit,
+    private val onLongClick: (Student) -> Unit
+) : RecyclerView.Adapter<StudentAdapter.StudentHolder>() {
 
     override fun onCreateViewHolder(group: ViewGroup, type: Int): StudentHolder {
         val inflater: LayoutInflater = LayoutInflater.from(group.context)
@@ -25,6 +29,15 @@ class StudentAdapter(private val studentList: List<Student>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: StudentHolder, position: Int) {
         val student = studentList[position]
         holder.bind(student)
+        holder.itemView.run {
+            setOnClickListener {
+                onClick(student)
+            }
+            setOnLongClickListener {
+                onLongClick(student)
+                return@setOnLongClickListener true
+            }
+        }
     }
 
     inner class StudentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
