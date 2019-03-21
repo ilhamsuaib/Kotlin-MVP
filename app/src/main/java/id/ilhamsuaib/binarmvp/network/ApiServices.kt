@@ -1,6 +1,7 @@
 package id.ilhamsuaib.binarmvp.network
 
-import id.ilhamsuaib.binarmvp.model.NewStudentResponse
+import id.ilhamsuaib.binarmvp.model.GeneralResponse
+import id.ilhamsuaib.binarmvp.model.Student
 import id.ilhamsuaib.binarmvp.model.StudentResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -17,11 +18,16 @@ interface ApiServices {
 
     @Headers("Content-Type: application/json")
     @POST("api/v1/student/")
-    fun newStudent(@Body studentMap: Map<String, String>): Call<NewStudentResponse>
+    fun newStudent(@Body studentMap: Map<String, String>): Call<GeneralResponse<Student>>
 
     @DELETE("api/v1/student/{studentId}")
-    fun deleteStudent(@Path("studentId") id: Int): Call<NewStudentResponse>
+    fun deleteStudent(@Path("studentId") id: Int): Call<GeneralResponse<Student>>
 
+    @PUT("api/v1/student/{id}")
+    fun editStudent(
+        @Path("id") studentId: Int,
+        @Body map: Map<String, String>
+    ): Call<GeneralResponse<Student>>
 }
 
 

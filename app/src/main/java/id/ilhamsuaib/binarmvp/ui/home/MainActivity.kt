@@ -8,11 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import id.ilhamsuaib.binarmvp.R
+import id.ilhamsuaib.binarmvp.common.Constants
 import id.ilhamsuaib.binarmvp.common.toast
 import id.ilhamsuaib.binarmvp.model.Student
-import id.ilhamsuaib.binarmvp.ui.newStudent.NewStudentActivity
+import id.ilhamsuaib.binarmvp.ui.formStudent.FormStudentActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.newStudent) {
-            startActivity(Intent(this, NewStudentActivity::class.java))
+            startActivity(Intent(this, FormStudentActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -64,14 +64,18 @@ class MainActivity : AppCompatActivity(), MainView {
         AlertDialog.Builder(this)
                 .setItems(options) { dialog, which ->
                     when (which) {
-                        0 -> {
-                            //edit
-                        }
+                        0 -> editStudent(student)
                         1 -> askForDelete(student)
                     }
                     dialog.dismiss()
                 }
                 .show()
+    }
+
+    private fun editStudent(student: Student) {
+        val intent = Intent(this, FormStudentActivity::class.java)
+        intent.putExtra(Constants.STUDENT, student)
+        startActivity(intent)
     }
 
     private fun askForDelete(student: Student) {
