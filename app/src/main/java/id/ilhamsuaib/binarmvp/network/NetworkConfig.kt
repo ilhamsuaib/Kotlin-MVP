@@ -30,6 +30,7 @@ object NetworkConfig {
             .readTimeout(timeOut, TimeUnit.SECONDS)
             .connectTimeout(timeOut, TimeUnit.SECONDS)
             .writeTimeout(timeOut, TimeUnit.SECONDS)
+            .addNetworkInterceptor(NetworkInterceptor())
             .addInterceptor(getInterceptor())
             .build()
     }
